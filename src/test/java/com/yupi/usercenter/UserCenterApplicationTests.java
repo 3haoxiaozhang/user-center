@@ -1,25 +1,29 @@
 package com.yupi.usercenter;
 
-import com.yupi.usercenter.mapper.UserMapper;
-import com.yupi.usercenter.model.User;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
+import org.springframework.util.DigestUtils;
 
-import javax.annotation.Resource;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 @SpringBootTest
 class UserCenterApplicationTests {
 
-    @Resource
-    private UserMapper userMapper;
     @Test
+    void testDigest() throws NoSuchAlgorithmException {
+        String s = DigestUtils.md5DigestAsHex(("abcd" + "mypassword").getBytes());
+        System.out.println(s);
+    }
+
+
+    @Test
+
     void contextLoads() {
-        System.out.println(("----- selectAll method test ------"));
-        List<User> userList = userMapper.selectList(null);
-        Assert.isTrue(5 == userList.size(), "");
-        userList.forEach(System.out::println);
+
     }
 
 }
