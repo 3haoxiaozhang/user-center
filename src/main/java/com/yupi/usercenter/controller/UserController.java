@@ -74,7 +74,33 @@ public class UserController {
         return user;
     }
 
+    /**
+     * 给前端返回用户
+     * @param Request
+     * @return
+     */
+    @GetMapping("/current")
+    public User getCurrentUser(HttpServletRequest Request){
+        Object UserObj = Request.getSession().getAttribute(UserConstant.USER_LOGIN_STATE);
+        User currentUser=(User)UserObj;
+        if(currentUser==null){
+            return null;
+        }
+        Long userId = currentUser.getId();
+        //todo 校验用户是否合法
+        User user = userService.getById(userId);
+        return userService.getSafetyUser(user);
 
+
+    }
+
+
+    /**
+     *根据用户名查询
+     * @param username
+     * @param Request
+     * @return
+     */
     @GetMapping("/search")
     public List<User> searchList(String username,HttpServletRequest Request){
 
@@ -93,6 +119,12 @@ public class UserController {
 
     }
 
+    /**
+     * 根据id删除
+     * @param id
+     * @param Request
+     * @return
+     */
     @PostMapping("/delete")
     public boolean deleteUser(@RequestBody Long id,HttpServletRequest Request){
 

@@ -1,5 +1,7 @@
 server:
   port: 8080
+  servlet:
+    context-path: /api
 spring:
   application:
     name: user-center
@@ -13,6 +15,8 @@ spring:
   session:
     timeout: 86400
 
+  #当为true时：mybatis-plus会将Java对象的驼峰式命名的常量转成下划线的方式，再与数据库表列字段进行匹配，这样会造成错误。 此时需要利用@TableField注解指定常量在表中的列名。
+  #当为false时：此时就需要数据库里每列都是下划线的命名方式
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
